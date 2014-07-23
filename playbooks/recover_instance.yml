@@ -1,0 +1,21 @@
+---
+# file: recover_instance.yml
+- name: Recover Instance
+  hosts: all
+  sudo: yes
+
+  tasks:
+    - name: Create project directory.
+      file: state=directory path=/chroot
+
+    - name: Mount device.
+      mount: name=/chroot src=/dev/sdh1 fstype=ext4 state=mounted
+
+    - name: Upload Recover Script.
+      copy: src=files/recover.py dest=/home
+
+    - name: Upload SSH public key.
+      copy: src=../tmp/public_key dest=/chroot/key
+
+    - name: Executing Recover Script.
+      command: python /home/recover.py
