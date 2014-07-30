@@ -221,8 +221,8 @@ def test(keyname, keypair):
 
 def checkIfIsFile(args,key):
 	if not os.path.isfile(getattr(args,key)):
-		logger.warning('File %s not found'%getattr(args,key))
-		sys.exit(0)
+		logger.error('File %s not found'%getattr(args,key))
+		sys.exit(1)
 	logger.info('File %s found'%getattr(args,key))
 
 
